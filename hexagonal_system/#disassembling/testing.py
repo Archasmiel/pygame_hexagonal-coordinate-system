@@ -1,9 +1,4 @@
-from hexagonal_system.premade.aspects import *
-
-fi = open('in.txt', 'r')
-fo = open('out.txt', 'w')
-for i in fi:
-    fo.write(f'aspects.append({i.split(" ")[0]})\n')
+from hexagonal_system.thaumcraft_aspects.aspects_io import *
 
 aer_connected = get_connected_aspects(aer)
 print([i.name for i in get_connected_aspects(herba)])

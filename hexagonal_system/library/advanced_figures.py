@@ -1,59 +1,71 @@
-from hexagonal_system.library.simple_figures import *
+import pygame.draw
+
+from hexagonal_system.library.simple_figures import draw_hex
+from hexagonal_system.library.colors import *
 from hexagonal_system.library.coordinate_system import *
 
 
-# drawing of hex cubic mesh
-def draw_cubic_mesh(screen, num, rad, font, hex_color, text_color):
-    """
+# basic mesh drawing
+def draw_mesh(screen, font, coord, mesh, r, hex_color, text_color):
+    for i in mesh:
+        title = f'{i[0]} {i[1]}'
+        fw, fh = font.size(title)
+        xy = hex_coord_to_xy(i, r)
+        cxy = dot_transfer(coord, xy)
+        if i == (0, 0):
+            draw_hex(screen, cxy, r, white, 0)
+        draw_hex(screen, cxy, r, hex_color, 1)
+        screen.blit(font.render(title, True, text_color), dot_transfer(coord, (xy[0] - fw / 2, xy[1] + fh)))
+        pygame.draw.circle(screen, hex_color, cxy, int(r / 15))
 
-    :param screen:
-    :param num:
-    :param rad:
-    :param font:
-    :param hex_color:
-    :param text_color:
-    """
+
+# dots of square mesh
+def get_square_mesh_dots(num):
+    build = []
     for i in range(-num, num + 1):
         for j in range(-num, num + 1):
-            x, y = hex_coord_to_xy((i, j), rad)
-            screen.blit(font.render(f'{i} {j}', True, text_color), (screen.get_width()/2+x-10, screen.get_height()/2+y+10))
-            draw_hex(screen, scc(hex_coord_to_xy((i, j), rad), get_sc_wh(screen)), rad, hex_color, 1)
+            build.append([i, j])
+    return build
 
 
-def draw_circle_mesh(screen, num, rad, font, hex_color, text_color):
-    """
-
-    :param screen:
-    :param num:
-    :param rad:
-    :param font:
-    :param hex_color:
-    :param text_color:
-    """
-    f = open('log.txt', 'w')
+# dots of circle mesh
+def get_circle_mesh_dots(num):
     i = 0
     build = []
     old = [(0, 0)]
     new = []
-    while i < num:
+    while i <= num:
         for k in old:
-            if not is_item_in_array(k, build):
+            if k not in build:
                 build.append(k)
-            connected = get_connected_dots((k[0], k[1]))
-            for j in connected:
-                if not is_item_in_array(j, build) and not is_item_in_array(j, old):
-                    build.append(j)
+            for j in get_connected_dots(k):
+                if j not in build and j not in old:
                     new.append(j)
         old = new.copy()
         new.clear()
         i += 1
+    return build
 
-    f = open(f'out_{num}.txt', 'w')
-    for i in build:
-        f.write(f'{i[0]} {i[1]}\n')
 
-    for i in build:
-        x, y = hex_coord_to_xy((i[0], i[1]), rad)
-        screen.blit(font.render(f'{i[0]} {i[1]}', True, text_color),
-                    (screen.get_width() / 2 + x - 10, screen.get_height() / 2 + y + 10))
-        draw_hex(screen, scc(hex_coord_to_xy((i[0], i[1]), rad), get_sc_wh(screen)), rad, hex_color, 1)
+# drawing of hex square mesh
+def draw_circle_mesh(screen, font, coord, num, r, hex_color, text_color):
+    draw_mesh(screen, font, coord, get_circle_mesh_dots(num), r, hex_color, text_color)
+
+
+# drawing of hex cubic mesh
+def draw_square_mesh(screen, font, coord, num, r, hex_color, text_color):
+    draw_mesh(screen, font, coord, get_square_mesh_dots(num), r, hex_color, text_color)
+
+
+# print square mesh dots to file
+def print_square_mesh(num):
+    with open(rf'!generated/square/out_{num}.txt', 'w') as f:
+        for i in get_square_mesh_dots(num):
+            f.write(f'{i[0]} {i[1]}\n')
+
+
+# print square mesh dots to file
+def print_circle_mesh(num):
+    with open(rf'!generated/circle/out_{num}.txt', 'w') as f:
+        for i in get_circle_mesh_dots(num):
+            f.write(f'{i[0]} {i[1]}\n')
