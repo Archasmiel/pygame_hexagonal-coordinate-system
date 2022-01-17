@@ -1,6 +1,32 @@
 import hexagonal_system.library.simple_figures as sf
 
 
+class Coordinates:
+
+    def __init__(self, x: int, y: int):
+        self.x = x
+        self.y = y
+
+    def get_coord(self):
+        return self.x, self.y
+
+    def get_connected_dots(self):
+        if self.x % 2 == 0:
+            return [dot_transfer((self.x, self.y), (-1, -1)),
+                    dot_transfer((self.x, self.y), (-1, +0)),
+                    dot_transfer((self.x, self.y), (+0, +1)),
+                    dot_transfer((self.x, self.y), (+1, +0)),
+                    dot_transfer((self.x, self.y), (+1, -1)),
+                    dot_transfer((self.x, self.y), (+0, -1))]
+        else:
+            return [dot_transfer((self.x, self.y), (+1, +1)),
+                    dot_transfer((self.x, self.y), (-1, +0)),
+                    dot_transfer((self.x, self.y), (+0, +1)),
+                    dot_transfer((self.x, self.y), (+1, +0)),
+                    dot_transfer((self.x, self.y), (-1, +1)),
+                    dot_transfer((self.x, self.y), (+0, -1))]
+
+
 def dot_transfer(coord, transfer):
     return coord[0]+transfer[0], coord[1]+transfer[1]
 

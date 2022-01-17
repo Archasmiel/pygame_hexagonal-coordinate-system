@@ -1,5 +1,6 @@
 import pygame
 from math import sqrt
+from hexagonal_system.library.colors import Color
 
 s3d2 = sqrt(3)/2
 d2 = 1/2
@@ -10,7 +11,7 @@ def get_hex_params(rad):
 
 
 # hexagon drawing function
-def draw_hex(surface, xy, r, color, line_width):
+def draw_hex(surface, xy, r, color: Color, line_width):
     rd2, rs3d2 = r * d2, r * s3d2
     coord = (
         (xy[0] - r, xy[1]),
@@ -20,7 +21,7 @@ def draw_hex(surface, xy, r, color, line_width):
         (xy[0] + rd2, xy[1] - rs3d2),
         (xy[0] - rd2, xy[1] - rs3d2)
     )
-    pygame.draw.polygon(surface, color, coord, line_width)
+    pygame.draw.polygon(surface, color.color, coord, line_width)
 
     # [additional lines and circle around hexagon]
     #

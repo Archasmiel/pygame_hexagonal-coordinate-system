@@ -2,7 +2,7 @@ import pygame.draw
 
 from hexagonal_system.library.simple_figures import draw_hex
 from hexagonal_system.library.colors import *
-from hexagonal_system.library.coordinate_system import *
+from hexagonal_system.library.coordinates import *
 
 
 # basic mesh drawing

@@ -10,15 +10,9 @@ class Aspect:
         self.basic = (first is None) and (second is None)
         self.level = level
 
-    # def print_aspects(self):
-    #     print(self.first.name, self.second.name)
-    #
-    # def get_aspects(self):
-    #     return [self.first, self.second]
-    #
-    # def get_name(self):
-    #     return self.name
 
+# no aspect
+aspect_none = Aspect("noneobj", None, None, level=-1)
 
 # basic aspects
 terra = Aspect("terra", None, None, level=0)
@@ -43,7 +37,7 @@ venenum = Aspect("venenum", aqua, perditio, level=1)
 # 2-nd level aspect
 volatus = Aspect("volatus", motus, aer, level=2)
 sano = Aspect("sano", victus, ordo, level=2)
-mortuus = Aspect("motuus", victus, perditio, level=2)
+mortuus = Aspect("mortuus", victus, perditio, level=2)
 herba = Aspect("herba", victus, terra, level=2)
 praecantatio = Aspect("praecantatio", potentia, vacuos, level=2)
 tenebrae = Aspect("tenebrae", vacuos, lux, level=2)
@@ -94,3 +88,14 @@ fabrico = Aspect("fabrico", humanus, instrumentum, level=7)
 # 8-th level
 ira = Aspect("ira", telum, ignis, level=8)
 
+
+# all aspects list
+aspects = [terra, aqua, ignis, aer, ordo, perditio,
+           victus, potentia, vacuos, motus, lux, gelum, vitreus, permutatio, tempestus, venenum,
+           volatus, sano, mortuus, herba, praecantatio, tenebrae, bestia, vinculum, fames, iterAspect, limus, metallum,
+           vitium, superbia, spiritus, alienis, arbor, auram, corpus, exanimis, gula, infernus,
+           cognitio, desidia, exubitor, sensus, luxuria,
+           invidia, humanus,
+           perfodio, messis, instrumentum, lucrum,
+           tutamen, pannus, meto, machina, telum, fabrico,
+           ira]

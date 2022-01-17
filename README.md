@@ -28,5 +28,3 @@ Current tasks:
 
 - Testing:
 - [ ] all Thaumcraft aspects library in one file
-- [ ] all Thaumcraft aspects library in one file
-- [ ] all Thaumcraft aspects library in one file
